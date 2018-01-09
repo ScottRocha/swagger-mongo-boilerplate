@@ -14,11 +14,14 @@
     "type": "git",
     "url": "https://github.com/ScottRocha/swagger-mongo-boilerplate"
   },
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "production": "node ./node_modules/cross-env/dist/bin/cross-env NODE_ENV=production node app.js",
     "staging": "node ./node_modules/cross-env/dist/bin/cross-env NODE_ENV=staging node app.js",
-    "lint": "eslint api config handlers jobs app.js --quiet"
+    "development": "node --max_old_space_size=4096 ./node_modules/cross-env/dist/bin/cross-env NODE_ENV=development node app.js",
+    "lint": "eslint api config handlers jobs app.js --quiet",
+    "test": "yarn run lint"
   },
   "engines": {
     "node": ">=8.9.4",
