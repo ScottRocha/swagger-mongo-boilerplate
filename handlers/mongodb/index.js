@@ -16,7 +16,6 @@ module.exports = (logger) => {
     "socketTimeoutMS": 0,
     "keepAlive": true,
     "reconnectTries": 30,
-    "useMongoClient": true,
   });
 
   const accounts = require("./models/Accounts")(connection);
