@@ -68,7 +68,6 @@ SwaggerExpress.create({
 
   const YAML = require("js-yaml");
   const fs = require("fs");
-  const path = require("path");
   const swaggerYaml = YAML.safeLoad(fs.readFileSync(path.join(__dirname, "/api/swagger/swagger.yaml")));
 
   const auth = require("http-auth");
