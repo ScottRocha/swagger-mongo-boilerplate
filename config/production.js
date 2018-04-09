@@ -13,4 +13,8 @@ module.exports = {
     "key": env.TOKEN_KEY,
   },
   "mongodb": env.MONGODB_URI,
+  "ui": {
+    "username": env.UI_USERNAME,
+    "password": env.UI_PASSWORD,
+  },
 };

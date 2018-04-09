@@ -1,23 +1,24 @@
 "use strict";
 
-const app = require("express")();
+global.Promise = require("bluebird");
+global.app = require("express")();
 
 const logger = require("./handlers/logger/index");
 logger.debug("Overriding \"Express\" logger");
-app.use(require("morgan")("combined", { "stream": logger.stream }));
+global.app.use(require("morgan")("combined", { "stream": logger.stream }));
 
 const helmet = require("helmet");
-app.use(helmet());
+global.app.use(helmet());
 
 const mongo = require("./handlers/mongodb")(logger);
-app.mongo = mongo;
+global.app.mongo = mongo;
 
 const jobs = require("./jobs");
 jobs.startAllJobs(logger, mongo);
 
 // accept cross origin requests.
 const cors = require("cors");
-app.use(cors());
+global.app.use(cors());
 
 const config = require("config");
 const path = require("path");
@@ -65,7 +66,34 @@ SwaggerExpress.create({
 
   swaggerExpress.register(app);
 
-  app.use((err, req, res, next) => {
+  const YAML = require("js-yaml");
+  const fs = require("fs");
+  const swaggerYaml = YAML.safeLoad(fs.readFileSync(path.join(__dirname, "/api/swagger/swagger.yaml")));
+
+  const auth = require("http-auth");
+  const basic = auth.basic({ "realm": "swagger-ui", "skipUser": true }, (username, password, callback) => {
+
+    return callback(username === config.ui.username && password === config.ui.password);
+
+  });
+
+  basic.on("error", (err, res) => {
+
+    logger.error(err);
+
+    return res.json({
+      "message": "Internal error occurred",
+      "code": "INTERNAL_ERROR",
+    });
+
+  });
+
+  global.app.use("/ui", auth.connect(basic));
+
+  const swaggerUi = require("swagger-ui-express");
+  global.app.use("/ui", swaggerUi.serve, swaggerUi.setup(swaggerYaml));
+
+  global.app.use((err, req, res, next) => {
 
     if (err) {
 
@@ -111,10 +139,8 @@ SwaggerExpress.create({
 
   // eslint-disable-next-line no-process-env
   const port = process.env.PORT || config.port;
-  app.listen(port);
+  global.app.listen(port);
 
   logger.info("API Server running on port " + port);
 
 });
-
-module.exports = app;

@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 "use strict";
 
-const { mongo } = require("../../app");
+const { mongo } = global.app;
 
 const error = require("../helpers/error");
 const password = require("../helpers/password");
