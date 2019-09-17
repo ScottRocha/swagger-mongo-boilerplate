@@ -1922,9 +1922,17 @@ swagger-schema-official@2.0.0-bab6bed:
   version "2.0.0-bab6bed"
   resolved "https://registry.yarnpkg.com/swagger-schema-official/-/swagger-schema-official-2.0.0-bab6bed.tgz#70070468d6d2977ca5237b2e519ca7d06a2ea3fd"
 
-swagger-ui-express@3.0.6:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/swagger-ui-express/-/swagger-ui-express-3.0.6.tgz#00a89dd76ab0638b32a61328d625cd197fbec3e0"
+swagger-ui-dist@^3.18.1:
+  version "3.23.10"
+  resolved "https://registry.yarnpkg.com/swagger-ui-dist/-/swagger-ui-dist-3.23.10.tgz#122b4c584e3b67eb2fb87e5ee3c9df2dbe773cd3"
+  integrity sha512-lK9oNNb9HAz2HJIg6+cYZszbYC/0CTm0nWi0XX2AjEbVgu43smbW2/h5zn7yAjYstPJBaYXkt5g6ABRpO/Ncfg==
+
+swagger-ui-express@4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/swagger-ui-express/-/swagger-ui-express-4.1.1.tgz#64a111b26c75f75e4bfe2eea3399ac500724e5ce"
+  integrity sha512-PDt7A4JZYszP2/AcnsYj24u1RwVRV3/8LvCZSL6EcxKq918OBhS1e7NHqS+2woBHi0zn8HjeiJVxXDBKVxgwYw==
+  dependencies:
+    swagger-ui-dist "^3.18.1"
 
 sway@^1.0.0:
   version "1.0.0"
